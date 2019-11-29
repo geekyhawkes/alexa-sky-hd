@@ -112,6 +112,20 @@ appliances = [
             ],
         "cookie": {}
     },
+     {
+        "applianceId": "skyq-adverts",
+        "manufacturerName": "Sky",
+        "version": "1",
+        "friendlyName": "Adverts",
+        "description": "Advert skip scene via Sky Q",
+        "isReachable": True,
+        "displayCategories":["SCENE_TRIGGER"],
+        "actions": [
+            "turnOn",
+            "turnOff"
+            ],
+        "cookie": {}
+    },
     {
         "applianceId": "skyq-youtube",
         "manufacturerName": "Sky",
@@ -335,6 +349,7 @@ def handle_non_discovery(request):
             commands.append("rewind")
         elif request_name == "Stop":
             commands.append("backup")
+        
 
     elif request_namespace == "Alexa.ChannelController":
         if request_name == "ChangeChannel":
@@ -382,6 +397,13 @@ def handle_non_discovery(request):
             if request_name == "Activate":
                 commands=['tvguide','sleep','right','down','down','down','down','down','select']
                 name = "ActivationStarted"
+            if request_name == "Deactivate":
+                commands.append('sky')
+                name = "DeactivationStarted"
+        elif endpointId == "skyq-adverts":
+            if request_name == "Activate":
+                commands=['fastforward','fastforward','fastforward','fastforward']
+                name = "ActivationStarted"   
             if request_name == "Deactivate":
                 commands.append('sky')
                 name = "DeactivationStarted"
